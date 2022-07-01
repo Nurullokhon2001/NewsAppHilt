@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.newsapphilt.R
-import com.example.newsapphilt.presentation.main_fragment.MainFragment
 
 
 @SuppressLint("CustomSplashScreen")
@@ -39,11 +39,7 @@ class SplashScreenFragment : Fragment() {
             }
 
             override fun onAnimationEnd(p0: Animator?) {
-                requireActivity()
-                    .supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.start_fragment_container, MainFragment())
-                    .commit()
+                findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
             }
 
             override fun onAnimationCancel(p0: Animator?) {
