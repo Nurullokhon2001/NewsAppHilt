@@ -30,10 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.splashScreenFragment) {
-
                 bottomNavigation.visibility = View.GONE
             } else {
-
                 bottomNavigation.visibility = View.VISIBLE
             }
         }

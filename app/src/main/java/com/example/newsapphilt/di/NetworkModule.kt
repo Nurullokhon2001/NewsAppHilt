@@ -3,6 +3,7 @@ package com.example.newsapphilt.di
 import com.example.newsapphilt.data.NewsInterfaceImpl
 import com.example.newsapphilt.domain.network.ApiInterface
 import com.example.newsapphilt.domain.network.NewsInterface
+import com.example.newsapphilt.domain.use_case.PopularNewsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,6 +42,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNewsInterface(api: ApiInterface): NewsInterface = NewsInterfaceImpl(api)
+
+    @Provides
+    @Singleton
+    fun providePopularNewsCase(api: NewsInterface)  = PopularNewsUseCase(api)
 
 }
 
