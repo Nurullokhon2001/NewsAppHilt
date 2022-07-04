@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapphilt.R
@@ -15,8 +16,10 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     private var newsList = emptyList<Article>()
 
     fun setData(list: List<Article>) {
-        newsList = list
-        notifyDataSetChanged()
+        val newsDiffUtil = NewsRecyclerviewDiffUtil(newsList, list)
+        val newsDiffResult = DiffUtil.calculateDiff(newsDiffUtil)
+        this.newsList = list
+        newsDiffResult.dispatchUpdatesTo(this)
     }
 
     class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
