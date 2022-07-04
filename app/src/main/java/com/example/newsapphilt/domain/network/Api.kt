@@ -5,5 +5,5 @@ import retrofit2.Response
 
 
 interface NewsInterface {
-  suspend fun  getPopularNews(q : String) : Response<NewsModel>
+  suspend fun  getPopularNews() : Response<NewsModel>
 }

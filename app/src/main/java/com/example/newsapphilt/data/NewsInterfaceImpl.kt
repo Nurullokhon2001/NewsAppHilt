@@ -9,7 +9,7 @@ import javax.inject.Inject
 class NewsInterfaceImpl
 @Inject constructor
     (private val api: ApiInterface) : NewsInterface {
-    override suspend fun getPopularNews(q: String): Response<NewsModel> {
-        return api.getPopularNews(q = q)
+    override suspend fun getPopularNews(): Response<NewsModel> {
+        return api.getPopularNews()
     }
 }
