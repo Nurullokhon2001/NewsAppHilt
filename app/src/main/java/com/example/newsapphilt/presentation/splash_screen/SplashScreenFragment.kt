@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.newsapphilt.R
+import dagger.hilt.android.AndroidEntryPoint
 
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashScreenFragment : Fragment() {
 
     private lateinit var lottieAnimationView: LottieAnimationView
