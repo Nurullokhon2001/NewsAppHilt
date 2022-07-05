@@ -1,6 +1,6 @@
 package com.example.newsapphilt.di
 
-import com.example.newsapphilt.data.NewsInterfaceImpl
+import com.example.newsapphilt.data.network.NewsInterfaceImpl
 import com.example.newsapphilt.domain.network.ApiInterface
 import com.example.newsapphilt.domain.network.NewsInterface
 import com.example.newsapphilt.domain.use_case.PopularNewsUseCase
@@ -43,9 +43,9 @@ object NetworkModule {
     @Singleton
     fun provideNewsInterface(api: ApiInterface): NewsInterface = NewsInterfaceImpl(api)
 
+
     @Provides
     @Singleton
     fun providePopularNewsCase(api: NewsInterface)  = PopularNewsUseCase(api)
 
 }
-

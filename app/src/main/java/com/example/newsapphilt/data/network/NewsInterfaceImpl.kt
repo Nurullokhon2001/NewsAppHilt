@@ -1,4 +1,4 @@
-package com.example.newsapphilt.data
+package com.example.newsapphilt.data.network
 
 import com.example.newsapphilt.domain.model.NewsModel
 import com.example.newsapphilt.domain.network.ApiInterface
