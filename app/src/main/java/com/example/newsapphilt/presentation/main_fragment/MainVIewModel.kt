@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapphilt.data.local.ArticleEntity
+import com.example.newsapphilt.domain.model.Article
 import com.example.newsapphilt.domain.model.NewsModel
 import com.example.newsapphilt.domain.use_case.InsertFavoriteUseCase
 import com.example.newsapphilt.domain.use_case.PopularNewsUseCase
@@ -17,25 +18,28 @@ import javax.inject.Inject
 class MainVIewModel @Inject constructor(
     private val popularNewsUseCase: PopularNewsUseCase,
     private val insertFavoriteUseCase: InsertFavoriteUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
 
     fun getPopularNews(): LiveData<Response<NewsModel>> {
         val newsDataList = MutableLiveData<Response<NewsModel>>()
         viewModelScope.launch {
             newsDataList.value = popularNewsUseCase.invoke()
-            val model = popularNewsUseCase.invoke().body()!!.articles[0]
+        }
+        return newsDataList
+    }
+
+    fun insertNews(model: Article) {
+        viewModelScope.launch {
             insertFavoriteUseCase.invoke(
                 ArticleEntity(
                     description = model.description,
                     publishedAt = model.publishedAt,
-                    source = model.source.name,
+                    source = model.source!!.name,
                     title = model.title,
                     url = model.url,
                     urlToImage = model.urlToImage,
                 )
             )
         }
-        return newsDataList
     }
 }

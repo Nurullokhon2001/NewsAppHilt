@@ -11,7 +11,11 @@ import com.bumptech.glide.Glide
 import com.example.newsapphilt.R
 import com.example.newsapphilt.domain.model.Article
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(
+    private val addToFavorite: (input: Article) -> Unit,
+    private val shareFavorite: (input: Article) -> Unit
+) :
+    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     private var newsList = emptyList<Article>()
 
@@ -23,11 +27,12 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     }
 
     class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var image = view.findViewById<ImageView>(R.id.news_image)
-        var title = view.findViewById<TextView>(R.id.news_title)
-        var description = view.findViewById<TextView>(R.id.news_description)
-        var time = view.findViewById<TextView>(R.id.news_time)
-        var author = view.findViewById<TextView>(R.id.news_author)
+        var image: ImageView = view.findViewById(R.id.news_image)
+        var share: ImageView = view.findViewById(R.id.news_share)
+        var title: TextView = view.findViewById(R.id.news_title)
+        var description: TextView = view.findViewById(R.id.news_description)
+        var time: TextView = view.findViewById(R.id.news_time)
+        var author: TextView = view.findViewById(R.id.news_author)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -37,7 +42,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val data = newsList[position]
-        holder.author.text = data.source.name
+        holder.author.text = data.source?.name
         holder.title.text = data.title
         holder.description.text = data.description
         holder.time.text = data.publishedAt.substringBefore("T")
@@ -45,9 +50,13 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         Glide.with(holder.image.context)
             .load(data.urlToImage)
             .centerCrop()
-            .into(holder.image);
+            .into(holder.image)
+        holder.itemView.setOnLongClickListener {
+            addToFavorite.invoke(data); return@setOnLongClickListener true
+        }
 
-        //  holder.image.setImageResource()
+        holder.share.setOnClickListener { shareFavorite.invoke(data) }
+
     }
 
     override fun getItemCount() = newsList.size

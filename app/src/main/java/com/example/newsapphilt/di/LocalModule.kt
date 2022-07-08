@@ -6,6 +6,8 @@ import com.example.newsapphilt.data.local.LocalNewsInterfaceImpl
 import com.example.newsapphilt.data.local.NewsDao
 import com.example.newsapphilt.data.local.NewsDataBase
 import com.example.newsapphilt.domain.local.LocalNewsInterface
+import com.example.newsapphilt.domain.use_case.DeleteFavoriteUseCase
+import com.example.newsapphilt.domain.use_case.GetAllFavoriteUseCase
 import com.example.newsapphilt.domain.use_case.InsertFavoriteUseCase
 import dagger.Module
 import dagger.Provides
@@ -40,6 +42,14 @@ class LocalModule {
     @Provides
     @Singleton
     fun provideLocalNews(dao: NewsDao): LocalNewsInterface = LocalNewsInterfaceImpl(dao)
+
+    @Provides
+    @Singleton
+    fun provideGetFavoriteUseCase(favoriteUseCase: LocalNewsInterface) = GetAllFavoriteUseCase(favoriteUseCase)
+
+    @Provides
+    @Singleton
+    fun provideDeleteFavoriteUseCase(favoriteUseCase: LocalNewsInterface) = DeleteFavoriteUseCase(favoriteUseCase)
 
 
 }

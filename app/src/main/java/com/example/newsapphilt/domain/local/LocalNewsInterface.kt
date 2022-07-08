@@ -4,10 +4,10 @@ import com.example.newsapphilt.data.local.ArticleEntity
 
 interface LocalNewsInterface {
 
-    fun getFavoriteNews(): List<ArticleEntity>
+ suspend   fun getFavoriteNews(): List<ArticleEntity>
 
     suspend fun insertFavoriteNews(news: ArticleEntity)
 
-    suspend fun deleteFavoriteNews(id: Int)
+    suspend fun deleteFavoriteNews(url: String)
 
 }

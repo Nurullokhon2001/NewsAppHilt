@@ -12,9 +12,9 @@ interface NewsDao {
     suspend fun insert(newsModel: ArticleEntity)
 
     @Query("Select * from NewsTable")
-    fun getAllData(): List<ArticleEntity>
+    suspend fun getAllData(): List<ArticleEntity>
 
-    @Query("Delete from NewsTable Where id = :id")
-    suspend fun deleteFavoriteNews(id: Int)
+    @Query("Delete from NewsTable Where url = :url")
+    suspend fun deleteFavoriteNews(url: String)
 
 }

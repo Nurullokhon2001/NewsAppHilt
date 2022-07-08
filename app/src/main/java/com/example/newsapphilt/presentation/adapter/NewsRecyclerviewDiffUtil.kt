@@ -26,7 +26,7 @@ class NewsRecyclerviewDiffUtil(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].title === newList[newItemPosition].title &&
                 oldList[oldItemPosition].description === newList[newItemPosition].description &&
-                oldList[oldItemPosition].source.name === newList[newItemPosition].source.name &&
+                oldList[oldItemPosition].source?.name === newList[newItemPosition].source?.name &&
                 oldList[oldItemPosition].publishedAt === newList[newItemPosition].publishedAt
     }
 }
